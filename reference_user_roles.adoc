@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: reference_user_roles.html 
+keywords: user, users, roles, role, task, permission, permissions, tasks, admin, Account Admin, Workspace Admin 
+summary: Los roles Administrador de cuentas y Administrador de área de trabajo proporcionan permisos específicos a los usuarios. 
+translate: false 
+---
+= Funciones
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Los roles Administrador de cuentas y Administrador de área de trabajo proporcionan permisos específicos a los usuarios.
+
+[cols="34,33,33"]
+|===
+| Tarea | Administrador de cuentas | Administrador de área de trabajo 
+
+
+| Gestionar entornos de trabajo | Sí | Sí, para espacios de trabajo asociados 
+
+
+| Ver el estado de replicación de datos | Sí | Sí, para espacios de trabajo asociados 
+
+
+| Visualice la línea de tiempo | Sí | Sí, para espacios de trabajo asociados 
+
+
+| Eliminar entornos de trabajo | Sí | No 
+
+
+| Conecte los clústeres de Kubernetes a Cloud Volumes ONTAP | Sí | No 
+
+
+| Reciba el informe de Cloud Volumes ONTAP | Sí | No 
+
+
+| Administrar cuentas de Cloud Central | Sí | No 
+
+
+| Gestione las cuentas de proveedores de cloud | Sí | No 
+
+
+| Modifique la configuración de Cloud Manager | Sí | No 
+
+
+| Consulte y gestione la consola de soporte | Sí | No 
+
+
+| Elimine entornos de trabajo de Cloud Manager | Sí | No 
+
+
+| Actualice Cloud Manager | Sí | No 
+
+
+| Instale un certificado HTTPS | Sí | No 
+
+
+| Configurar Active Directory | Sí | No 
+|===
+.Enlaces relacionados
+* link:task_setting_up_cloud_central_accounts.html["Configuración de espacios de trabajo y usuarios en la cuenta de Cloud Central"]
+* link:task_managing_cloud_central_accounts.html["Gestión de espacios de trabajo y usuarios en la cuenta de Cloud Central"]
+

@@ -1,0 +1,64 @@
+---
+sidebar: sidebar 
+permalink: reference_networking_azure.html 
+keywords: networking, network, requirements, connection, connections, vnet, security group, security groups, subnet, vpn, internet, proxy, HTTP, private, proxy server, routing, firewall, autosupport, connection, jump host, outbound, ports, blob, service endpoint 
+summary: Configure sus redes de Azure para que los sistemas Cloud Volumes ONTAP funcionen correctamente. 
+---
+= Requisitos de red para Cloud Volumes ONTAP en Azure
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Configure sus redes de Azure para que los sistemas Cloud Volumes ONTAP funcionen correctamente.
+
+Acceso saliente a Internet para Cloud Volumes ONTAP:: Cloud Volumes ONTAP requiere acceso saliente a Internet para enviar mensajes a NetApp AutoSupport, que supervisa proactivamente el estado del almacenamiento.
++
+--
+Las políticas de enrutamiento y firewall deben permitir el tráfico HTTP/HTTPS a los siguientes extremos para que Cloud Volumes ONTAP pueda enviar mensajes de AutoSupport:
+
+* \https://support.netapp.com/aods/asupmessage
+* \https://support.netapp.com/asupprod/post/1.0/postAsup
+
+
+--
+Grupos de seguridad:: No necesita crear grupos de seguridad porque Cloud Manager lo hace por usted. Si necesita utilizar el suyo propio, consulte link:reference_security_groups_azure.html["Reglas de grupo de seguridad"].
+Número de direcciones IP:: Cloud Manager asigna el siguiente número de direcciones IP a Cloud Volumes ONTAP en Azure:
++
+--
+* Nodo único: Direcciones IP de 5
+* Par DE ALTA DISPONIBILIDAD: 16 direcciones IP
++
+Tenga en cuenta que Cloud Manager crea una LIF de gestión de SVM en parejas de alta disponibilidad, pero no en sistemas de un único nodo en Azure.
+
++
+
+TIP: Una LIF es una dirección IP asociada con un puerto físico. Se requiere una LIF de gestión de SVM para herramientas de gestión como SnapCenter.
+
+
+
+--
+Conexión de Cloud Volumes ONTAP a Azure Blob Storage para organización en niveles de los datos:: Si desea organizar en niveles datos fríos en almacenamiento de Azure Blob, no necesita configurar una conexión entre el nivel de rendimiento y el nivel de capacidad mientras Cloud Manager tenga los permisos necesarios Cloud Manager habilita un extremo de servicio vnet para usted si la política de Cloud Manager tiene estos permisos:
++
+--
+[source, json]
+----
+"Microsoft.Network/virtualNetworks/subnets/write",
+"Microsoft.Network/routeTables/join/action",
+----
+Estos permisos se incluyen en el último https://mysupport.netapp.com/cloudontap/iampolicies["Política de Cloud Manager"].
+
+Para obtener más información sobre la configuración de la organización en niveles de datos, consulte link:task_tiering.html["Organización en niveles de los datos inactivos en almacenamiento de objetos de bajo coste"].
+
+--
+Conexiones a sistemas ONTAP en otras redes:: Para replicar datos entre un sistema Cloud Volumes ONTAP en Azure y sistemas ONTAP en otras redes, debe tener una conexión VPN entre el vnet de Azure y la otra red, por ejemplo, un VPC de AWS o una red de su empresa.
++
+--
+Para obtener instrucciones, consulte https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-site-to-site-resource-manager-portal["Documentación de Microsoft Azure: Cree una conexión de sitio a sitio en el portal de Azure"^].
+
+--
+

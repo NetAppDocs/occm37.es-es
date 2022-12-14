@@ -1,0 +1,26 @@
+---
+sidebar: sidebar 
+permalink: task_setting_up_cloud_manager.html 
+keywords:  
+summary: Puede empezar a crear sistemas Cloud Volumes ONTAP justo después de poner en marcha Cloud Manager. Sin embargo, es posible que desee realizar primero la configuración adicional configurando su cuenta de Cloud Central, agregando cuentas de proveedor de cloud, instalando un certificado HTTPS y mucho más. 
+---
+= Configurar Cloud Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Puede empezar a crear sistemas Cloud Volumes ONTAP justo después de poner en marcha Cloud Manager. Sin embargo, es posible que desee realizar primero la configuración adicional configurando su cuenta de Cloud Central, agregando cuentas de proveedor de cloud, instalando un certificado HTTPS y mucho más.
+
+* link:task_setting_up_cloud_central_accounts.html["Configurar la cuenta de Cloud Central"]
+* link:task_adding_aws_accounts.html["Añadiendo cuentas de AWS a Cloud Manager"]
+* link:task_adding_azure_accounts.html["Adición de cuentas de Azure a Cloud Manager"]
+* link:task_adding_gcp_accounts.html["Adición de cuentas de GCP a Cloud Manager"]
+* link:task_adding_nss_accounts.html["Adición de cuentas del sitio de soporte de NetApp a Cloud Manager"]
+* link:task_installing_https_cert.html["Instalar un certificado HTTPS"]
+* link:task_setting_up_kms.html["Configuración de AWS KMS"]
+

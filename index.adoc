@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: index.html 
+summary: Bienvenido al portal de documentación de Cloud Manager y Cloud Volumes ONTAP. 
+---
+= Documentación de Cloud Manager y Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+Cloud Manager le permite poner en marcha y gestionar Cloud Volumes ONTAP de NetApp, una solución de gestión de datos que ofrece protección, visibilidad y control para sus cargas de trabajo basadas en cloud.
+
+
+
+== Descubra las novedades
+
+* link:reference_new_occm.html["Novedades en Cloud Manager"]
+* https://docs.netapp.com/us-en/cloud-volumes-ontap/reference_new_97.html["Novedades en Cloud Volumes ONTAP"^]
+
+
+
+
+== Manos a la obra
+
+* link:task_getting_started_aws.html["Empiece a usar AWS"]
+* link:task_getting_started_azure.html["Empiece a usar Azure"]
+* link:task_getting_started_gcp.html["Comience a usar Google Cloud Platform"]
+* https://docs.netapp.com/us-en/cloud-volumes-ontap/index.html["Busque las configuraciones compatibles para Cloud Volumes ONTAP"^]
+* link:reference_networking_cloud_manager.html["Revise los requisitos de red para Cloud Manager"]
+* link:reference_networking_aws.html["Revise los requisitos de red para Cloud Volumes ONTAP para AWS"]
+* link:reference_networking_azure.html["Revise los requisitos de red para Cloud Volumes ONTAP para Azure"]
+* link:reference_networking_gcp.html["Revise los requisitos de red para Cloud Volumes ONTAP para GCP"]
+* link:task_planning_your_config.html["Planifique la configuración de Cloud Volumes ONTAP"]
+
+
+
+
+== Automatización con API
+
+* link:api.html["Guía para desarrolladores de API"^]
+* link:reference_infrastructure_as_code.html["Muestras de automatización"]
+
+
+
+
+== Conéctese con colegas, obtenga ayuda y obtenga más información
+
+* https://community.netapp.com/t5/Cloud-Data-Services/ct-p/CDS["Comunidad de NetApp: Servicios de datos en el cloud"^]
+* https://mysupport.netapp.com/cloudontap["Soporte Cloud Volumes ONTAP de NetApp"^]
+* link:reference_additional_info.html["Dónde encontrar ayuda y más información"]
+

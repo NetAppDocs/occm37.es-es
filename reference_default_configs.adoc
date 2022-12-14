@@ -1,0 +1,210 @@
+---
+sidebar: sidebar 
+permalink: reference_default_configs.html 
+keywords: linux, user name, operating system, installation files, installation folder, folder, log, logs, service, mysql, packages, linux,  svm, LIF, LIFs, configuration backups, attributes, autosize, security style, space guarantee, unix permissions, NTFS, UNIX, boot, root, disks, aggr0, aggr1, svm, svms, storage virtual machine, LIF failover, failover, attributes, volume attributes, boot disk, root disk, licenses, feature licenses, default licenses, ontap licenses, ontap features 
+summary: Los detalles sobre la configuración predeterminada de Cloud Manager y Cloud Volumes ONTAP pueden ayudarle a administrar los sistemas. 
+translate: false 
+---
+= Configuraciones predeterminadas
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Los detalles sobre la configuración predeterminada de Cloud Manager y Cloud Volumes ONTAP pueden ayudarle a administrar los sistemas.
+
+
+
+== Configuración predeterminada para Cloud Manager en Linux
+
+Si necesita solucionar problemas con Cloud Manager o su host Linux, puede ser útil comprender cómo se configura Cloud Manager.
+
+* Si implementó Cloud Manager desde NetApp Cloud Central (o directamente desde el mercado de un proveedor de cloud), tenga en cuenta lo siguiente:
++
+** En AWS, el nombre de usuario de la instancia de EC2 Linux es ec2-user.
+** El sistema operativo de la imagen de Cloud Manager es Red Hat Enterprise Linux 7.4 (HVM).
++
+El sistema operativo no incluye una GUI. Debe utilizar un terminal para acceder al sistema.
+
+
+
+* La carpeta de instalación de Cloud Manager reside en la siguiente ubicación:
++
+/opt/aplicación/netapp/cloudmanager
+
+* Los archivos de registro se encuentran en la siguiente carpeta:
++
+/opt/application/netapp/cloudmanager/log
+
+* El servicio Cloud Manager se llama occm.
+* El servicio occm depende del servicio MySQL.
++
+Si el servicio MySQL está inactivo, entonces el servicio occm también está inactivo.
+
+* Cloud Manager instala los siguientes paquetes en el host Linux, si no están ya instalados:
++
+** 7zip
+** AWSCLI
+** Java
+** Kubectl
+** MySQL
+** Tridentctl
+** Consiga
+
+
+
+
+
+
+== Configuración predeterminada de Cloud Volumes ONTAP
+
+Comprender cómo se configura Cloud Volumes ONTAP de forma predeterminada puede ayudarle a configurar y administrar los sistemas, especialmente si está familiarizado con ONTAP porque la configuración predeterminada para Cloud Volumes ONTAP es diferente de ONTAP.
+
+* Cloud Volumes ONTAP está disponible como un sistema de un solo nodo en AWS, Azure y GCP, así como como una pareja de alta disponibilidad en AWS y Azure.
+* Cloud Manager crea una SVM que sirve datos cuando pone en marcha Cloud Volumes ONTAP. No se puede usar varias SVM que sirva datos.
+* Cloud Manager instala automáticamente las siguientes licencias de funciones de ONTAP en Cloud Volumes ONTAP:
++
+** CIFS
+** FlexCache
+** FlexClone
+** ISCSI
+** Cifrado de volúmenes de NetApp (solo para sistemas BYOL o registrados de PAYGO)
+** NFS
+** SnapMirror
+** SnapRestore
+** SnapVault
+
+
+* De forma predeterminada, se crean varias interfaces de red:
++
+** Una LIF de gestión de clústeres
+** Una LIF de interconexión de clústeres
+** Una LIF de gestión SVM en sistemas de alta disponibilidad en Azure, sistemas de un solo nodo en AWS y, opcionalmente, en sistemas de alta disponibilidad en varias zonas de disponibilidad de AWS
+** Una LIF de gestión de nodos
+** Una LIF de datos iSCSI
+** Un LIF de datos CIFS y NFS
++
+
+NOTE: La conmutación por error de LIF está deshabilitada de forma predeterminada para Cloud Volumes ONTAP debido a los requisitos de EC2. Al migrar una LIF a otro puerto, se interrumpe la asignación externa entre direcciones IP e interfaces de red en la instancia, lo que hace que la LIF no sea accesible.
+
+
+
+* Cloud Volumes ONTAP envía backups de configuración a Cloud Manager mediante HTTPS.
++
+Cuando inició sesión en Cloud Manager, es posible acceder a los backups desde https://ipaddress/occm/offboxconfig/[]
+
+* Cloud Manager establece algunos atributos de volumen de manera diferente a los de otras herramientas de gestión (por ejemplo, System Manager o la CLI).
++
+En la siguiente tabla, se enumeran los atributos de volúmenes que Cloud Manager establece de manera diferente a los valores predeterminados:
+
++
+[cols="15,85"]
+|===
+| Atributo | Valor definido por Cloud Manager 
+
+
+| Modo de ajuste automático de tamaño | crezca 
+
+
+| tamaño automático máximo  a| 
+1,000 por ciento
+
+
+NOTE: El administrador de cuentas puede modificar este valor en la página Configuración.
+
+
+
+| Estilo de seguridad | NTFS para volúmenes CIFS UNIX para volúmenes NFS 
+
+
+| Estilo de garantía de espacio | ninguno 
+
+
+| Permisos de UNIX (solo NFS) | 777 
+|===
++
+Consulte la página del comando man _volume create_ para obtener información sobre estos atributos.
+
+
+
+
+
+== Datos raíz y de arranque para Cloud Volumes ONTAP
+
+Además del almacenamiento de los datos de usuario, Cloud Manager también adquiere almacenamiento en cloud para el arranque y los datos raíz en cada sistema Cloud Volumes ONTAP.
+
+
+
+=== AWS
+
+* Dos discos SSD de uso general:
++
+** Un disco de 140 GB para los datos raíz (uno por nodo)
+** 9.6 y posteriores: Un disco de 86 GB para datos de arranque (uno por nodo)
+** 9.5 y versiones anteriores: Un disco de 45 GB para datos de arranque (uno por nodo)
+
+
+* Una instantánea de EBS para cada disco de arranque y disco raíz
+* Para los pares de alta disponibilidad, un volumen de EBS para la instancia de Mediator, que es aproximadamente 8 GB
+
+
+
+
+=== Azure (nodo único)
+
+* Dos discos SSD premium:
++
+** Un disco de 90 GB para los datos de arranque
+** Un disco de 140 GB para datos raíz
+
+
+* Una instantánea de Azure para cada disco de arranque y disco raíz
+
+
+
+
+=== Azure (parejas de alta disponibilidad)
+
+* Dos discos SSD Premium de 90 GB para el volumen de arranque (uno por nodo)
+* Dos Blobs de página de almacenamiento Premium de 140 GB para la raíz volumen (uno por nodo)
+* Dos discos HDD estándar de 128 GB para ahorrar núcleos (uno por nodo)
+* Una instantánea de Azure para cada disco de arranque y disco raíz
+
+
+
+
+=== GCP
+
+* Un disco persistente estándar de 10 GB para datos de arranque
+* Un disco persistente estándar de 64 GB para datos raíz
+* Un disco persistente estándar de 500 GB para NVRAM
+* Un disco persistente estándar de 216 GB para ahorrar núcleos
+* Una instantánea de GCP para el disco de arranque y la raíz disco
+
+
+
+
+=== La ubicación de los discos
+
+Cloud Manager establece el almacenamiento de la siguiente manera:
+
+* Los datos de arranque residen en un disco asociado a la instancia o a la máquina virtual.
++
+Este disco, que contiene la imagen de arranque, no está disponible para Cloud Volumes ONTAP.
+
+* Los datos raíz, que contienen la configuración y los registros del sistema, residen en aggr0.
+* El volumen raíz de la máquina virtual de almacenamiento (SVM) reside en aggr1.
+* Los volúmenes de datos también residen en aggr1.
+
+
+
+
+=== Cifrado
+
+Los discos de arranque y raíz siempre se cifran en Azure y Google Cloud Platform, ya que el cifrado está habilitado de forma predeterminada en esos proveedores de cloud.
+
+Cuando habilita el cifrado de datos en AWS mediante el Servicio de gestión de claves (KMS), los discos de arranque y raíz para Cloud Volumes ONTAP también se cifran. Esto incluye el disco de arranque para la instancia del mediador en una pareja de alta disponibilidad. Los discos se cifran utilizando el CMK que seleccione al crear el entorno de trabajo.

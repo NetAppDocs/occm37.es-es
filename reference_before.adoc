@@ -1,0 +1,37 @@
+---
+sidebar: sidebar 
+permalink: reference_before.html 
+keywords: prerequisites, requirements, before 
+summary: Antes de usar Cloud Manager para crear y gestionar sistemas Cloud Volumes ONTAP, su administrador de Cloud Manager debe haber preparado una red, instalar y configurar Cloud Manager. 
+---
+= Antes de crear sistemas Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Antes de usar Cloud Manager para crear y gestionar sistemas Cloud Volumes ONTAP, su administrador de Cloud Manager debe haber preparado una red, instalar y configurar Cloud Manager.
+
+Antes de iniciar la implementación de Cloud Volumes ONTAP, deben existir las siguientes condiciones:
+
+* Se cumplieron los requisitos de red de Cloud Manager y Cloud Volumes ONTAP.
+* Cloud Manager cuenta con permisos para realizar operaciones en el proveedor de cloud que elija.
+* Para AWS, está suscrito a la página correspondiente de AWS Marketplace:
++
+** Si desea implementar un sistema PAYGO o activar una función complementaria: https://aws.amazon.com/marketplace/pp/B07QX2QLXX["La página Cloud Manager (para Cloud Volumes ONTAP)"^].
+** Si desea poner en marcha un sistema con su propia licencia: https://aws.amazon.com/marketplace/search/results?x=0&y=0&searchTerms=cloud+volumes+ontap+byol["El único nodo o la página de alta disponibilidad en el AWS Marketplace"^].
+
+
+* Se instaló Cloud Manager.
+
+
+.Enlaces relacionados
+* link:task_getting_started_aws.html["Introducción a AWS"]
+* link:task_getting_started_azure.html["Introducción a Azure"]
+* link:task_getting_started_gcp.html["Introducción a GCP"]
+* link:task_setting_up_cloud_manager.html["Configurar Cloud Manager"]
+

@@ -1,0 +1,19 @@
+---
+sidebar: sidebar 
+permalink: concept_keep_up.html 
+keywords: shut down, shutdown, stop, stopping, billing, power on, power off 
+summary: Cloud Manager debe seguir ejecutándose en todo momento. 
+---
+= Mantener Cloud Manager en funcionamiento
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Manager debe seguir ejecutándose en todo momento.
+
+Cloud Manager es un componente clave en el estado y la facturación de Cloud Volumes ONTAP. Si Cloud Manager se apaga, los sistemas Cloud Volumes ONTAP se apagarán tras perder la comunicación con Cloud Manager durante más de 4 días.

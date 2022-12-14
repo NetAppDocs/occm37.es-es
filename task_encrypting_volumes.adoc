@@ -1,0 +1,81 @@
+---
+sidebar: sidebar 
+permalink: task_encrypting_volumes.html 
+keywords: encrypt, encryption, data, volumes, netapp volume encryption, volume encryption, nve, key managers, kmip, key management servers, license, ssl certificates 
+summary: El cifrado de volúmenes de NetApp es una tecnología basada en software para cifrar datos en reposo de un volumen a la vez. Se cifran datos, copias Snapshot y metadatos. El acceso a los datos se proporciona mediante una clave XTS-AES-256 exclusiva, una por volumen. 
+---
+= Cifrar volúmenes con cifrado de volúmenes de NetApp
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+El cifrado de volúmenes de NetApp (NVE) es una tecnología basada en software para cifrar datos en reposo un volumen por vez. Se cifran datos, copias Snapshot y metadatos. El acceso a los datos se proporciona mediante una clave XTS-AES-256 exclusiva, una por volumen.
+
+.Acerca de esta tarea
+* A partir de Cloud Manager 3.7.1, se instala automáticamente una licencia de cifrado de volúmenes de NetApp en cada sistema Cloud Volumes ONTAP registrado en el servicio de soporte de NetApp.
++
+** link:task_adding_nss_accounts.html["Adición de cuentas del sitio de soporte de NetApp a Cloud Manager"]
+** link:task_registering.html["Registro de sistemas de pago por uso"]
++
+
+NOTE: Cloud Manager no instala la licencia NVE en sistemas que residen en la región China.
+
+
+
+* En este momento, Cloud Volumes ONTAP admite el cifrado de volúmenes de NetApp con un servidor de gestión de claves externo. No se admite un administrador de claves incorporado.
+* Debe configurar el cifrado de volúmenes de NetApp desde la interfaz de línea de comandos de ONTAP.
++
+A continuación, puede usar la interfaz de línea de comandos o System Manager para habilitar el cifrado en volúmenes específicos. Cloud Manager no es compatible con el cifrado de volúmenes de NetApp desde la interfaz de usuario y desde las API de.
+
+
+
+link:concept_security.html["Obtenga más información sobre las tecnologías de cifrado compatibles"].
+
+.Pasos
+. Revise la lista de administradores de claves compatibles en la http://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"^].
++
+
+TIP: Busque la solución *Key Managers*.
+
+. link:task_connecting_to_otc.html["Conéctese a la CLI de Cloud Volumes ONTAP"^].
+. Instale certificados SSL y conéctese a los servidores de gestión de claves externos.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-DD718B42-038D-4009-84FF-20BBD6530BC2.html["Guía completa de cifrado de NetApp para ONTAP 9: Configuración de gestión de claves externas"^]
+
+. Cree un volumen cifrado nuevo o convierta un volumen no cifrado existente mediante la CLI o System Manager.
++
+** CLI:
++
+*** Para volúmenes nuevos, utilice el comando *volume create* con el parámetro -encrypt.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-A5D3FDEF-CA10-4A54-9E17-DB9E9954082E.html["Guía completa de cifrado de NetApp para ONTAP 9: Habilitar el cifrado en un nuevo volumen"^]
+
+*** Para los volúmenes existentes, utilice el comando *VOLUME Encryption conversion start*.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-1468CE48-A0D9-4D45-BF78-A11C26724051.html["Guía completa de cifrado de NetApp para ONTAP 9: Habilitar el cifrado en un volumen existente con el comando volume Encryption conversion start"^]
+
+
+
+** System Manager:
++
+*** Para volúmenes nuevos, haga clic en *almacenamiento > volúmenes > Crear > Crear FlexVol* y, a continuación, seleccione *cifrado*.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.onc-sm-help-950/GUID-3FA865E2-AE14-40A9-BF76-A2D7EB44D387.html["Gestión de clústeres de ONTAP 9 mediante System Manager: Creación de volúmenes de FlexVol"^]
+
+*** Para los volúmenes existentes, seleccione el volumen, haga clic en *Editar* y, a continuación, seleccione *cifrado*.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.onc-sm-help-950/GUID-906E88E4-8CE9-465F-8AC7-0C089080B2C5.html["Gestión de clústeres de ONTAP 9 mediante System Manager: Editar propiedades de volumen"^]
+
+
+
+
+
+

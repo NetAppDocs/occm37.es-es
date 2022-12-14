@@ -1,0 +1,80 @@
+---
+sidebar: sidebar 
+permalink: task_syncing_s3.html 
+keywords: sync, data, s3, cloud sync, bucket, service, sync to s3, volume sync 
+summary: Puede sincronizar datos de ONTAP Volumes en un bloque de Amazon S3 mediante la integración de un entorno de trabajo con Cloud Sync de NetApp. A continuación, puede utilizar los datos sincronizados como una copia secundaria o para el procesamiento de datos con servicios de AWS como EMR y Redshift. 
+---
+= Sincronizando datos en Amazon S3
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Puede sincronizar datos de ONTAP Volumes en un bloque de Amazon S3 mediante la integración de un entorno de trabajo con https://www.netapp.com/us/cloud/data-sync-saas-product-details["Cloud Sync de NetApp"^]. A continuación, puede utilizar los datos sincronizados como una copia secundaria o para el procesamiento de datos con servicios de AWS como EMR y Redshift.
+
+
+
+== Cómo funciona la función de sincronización con S3
+
+Puede integrar un entorno de trabajo con el servicio Cloud Sync en cualquier momento. Cuando se integra un entorno de trabajo, el servicio Cloud Sync sincroniza los datos de los volúmenes seleccionados en un único bloque de S3. La integración funciona con entornos de trabajo de Cloud Volumes ONTAP, así como clústeres de ONTAP que están en las instalaciones o forman parte de una configuración de almacenamiento privado de NetApp (NPS).
+
+Para sincronizar los datos, el servicio inicia una instancia de agente de datos en el VPC. Cloud Sync utiliza un agente de datos por entorno de trabajo para sincronizar datos de volúmenes en un bloque de S3. Después de la sincronización inicial, el servicio sincroniza los datos modificados una vez al día a medianoche.
+
+image:screenshot_sync_to_s3.gif["Screen shot: Muestra una imagen conceptual de volúmenes de un entorno de trabajo que se está sincronizando en un bloque de S3 mediante un agente de datos."]
+
+Si desea realizar acciones Cloud Sync avanzadas, vaya directamente al servicio Cloud Sync. A partir de ahí, puede realizar acciones como sincronizar de S3 con un servidor NFS, elegir distintos bloques S3 para volúmenes y modificar programaciones.
+
+
+
+=== prueba gratuita de 14 días
+
+Si usted es un nuevo usuario de Cloud Sync, sus primeros 14 días son gratis. Después de que finalice la prueba gratuita, deberá pagar por cada _SYNC Relationship_ a una tarifa por hora o mediante la compra de licencias. Cada volumen que se sincroniza con un bloque de S3 se considera una relación de sincronización. Puede configurar ambas opciones de pago directamente desde Cloud Sync en la página Configuración de licencia.
+
+
+
+=== Cómo obtener ayuda
+
+Use las siguientes opciones para cualquier soporte relacionado con la función Cloud Manager Sync to S3 o con Cloud Sync en general:
+
+* Comentarios generales sobre productos: ng-cloudsync-contact@netapp.com
+* Opciones de soporte técnico:
++
+** Comunidades Cloud Sync de NetApp
+** Chat en el producto (en la esquina inferior derecha de Cloud Manager)
+
+
+
+
+
+
+== Integración de un entorno de trabajo con el servicio Cloud Sync
+
+Si desea sincronizar volúmenes en Amazon S3 directamente desde Cloud Manager, debe integrar el entorno de trabajo con el servicio Cloud Sync.
+
+video::3hOtLs70_xE[youtube,width=848,height=480]
+.Pasos
+. Abra un entorno de trabajo y haga clic en *Sincronizar a S3*.
+. Haga clic en *Sincronizar* y siga las indicaciones para sincronizar los datos con S3.
+
+
+
+NOTE: No es posible sincronizar los volúmenes de protección de datos en S3. Los volúmenes deben ser editables.
+
+
+
+== Gestión de relaciones de sincronización de volúmenes
+
+Tras integrar un entorno de trabajo con el servicio Cloud Sync, puede sincronizar volúmenes adicionales, detener la sincronización de un volumen y eliminar la integración con Cloud Sync.
+
+.Pasos
+. En la página entornos de trabajo, haga doble clic en el entorno de trabajo en el que desea gestionar las relaciones de sincronización.
+. Si desea activar o desactivar la sincronización con S3 para un volumen, seleccione el volumen y, a continuación, haga clic en *Sincronizar con S3* o *Eliminar relación de sincronización*.
+. Si desea eliminar todas las relaciones de sincronización de un entorno de trabajo, haga clic en la ficha *Sincronizar a S3* y, a continuación, haga clic en *Eliminar sincronización*.
++
+Esta acción no elimina los datos sincronizados del bloque de S3. Si el agente de datos no se está utilizando en ninguna otra relación de sincronización, el servicio Cloud Sync elimina el agente de datos.
+
+

@@ -1,0 +1,153 @@
+---
+sidebar: sidebar 
+permalink: task_manage_anf.html 
+keywords: azure netapp files, create volumes, delete volumes, create nfs volumes, delete nfs volumes, netapp account, capacity pool, create capacity pool, azure netapp files permissions, azure permissions, mount path, get mount path, find mount path, mount volume 
+summary: Consulte y cree volúmenes de NFS para Azure NetApp Files directamente desde Cloud Manager. 
+---
+= Gestionar volúmenes para Azure NetApp Files
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Consulte y cree volúmenes NFS para https://cloud.netapp.com/azure-netapp-files["Azure NetApp Files"^] Directamente de Cloud Manager.
+
+
+
+== Configuración
+
+Su configuración debe cumplir unos pocos requisitos antes de poder gestionar los volúmenes para Azure NetApp Files en Cloud Manager.
+
+. La configuración de Azure NetApp Files debe realizarse completando los siguientes pasos del portal de Azure:
++
+** https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-register["Regístrese para Azure NetApp Files"^]
+** https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-create-netapp-account["Cree una cuenta de NetApp"^]
+** https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["Configure un pool de capacidad"^]
+** https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["Delegar una subred en Azure NetApp Files"^]
+
+
+. Cloud Manager debe configurarse del siguiente modo:
++
+** Cloud Manager debe ejecutarse en Azure, en la cuenta en la que se configuró Azure NetApp Files.
+** La máquina virtual de Cloud Manager debe recibir permisos a través de un https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview["identidad administrada"^].
++
+Si implementó Cloud Manager desde Cloud Central, estará todo listo. Cloud Central activa automáticamente una identidad administrada asignada por el sistema en la máquina virtual de Cloud Manager.
+
++
+Si implementó Cloud Manager desde Azure Marketplace, debe haber seguido link:task_launching_azure_mktp.html["instrucciones para habilitar una identidad administrada"].
+
+** El rol de Azure asignado a la máquina virtual de Cloud Manager debe incluir los permisos indicados en el más reciente https://occm-sample-policies.s3.amazonaws.com/Policy_for_cloud_Manager_Azure_3.7.4.json["Política de Cloud Manager para Azure"^]:
++
+[source, json]
+----
+"Microsoft.NetApp/netAppAccounts/read",
+"Microsoft.NetApp/netAppAccounts/capacityPools/read",
+"Microsoft.NetApp/netAppAccounts/capacityPools/volumes/write",
+"Microsoft.NetApp/netAppAccounts/capacityPools/volumes/read",
+"Microsoft.NetApp/netAppAccounts/capacityPools/volumes/delete"
+----
+
+
+
+
+Una vez configurada la configuración, Cloud Manager muestra automáticamente Azure NetApp Files en la página entornos de trabajo:
+
+image:screenshot_anf_cloud.gif["Captura de pantalla de un cloud Azure NetApp Files en la página entornos de trabajo."]
+
+
+
+== Crear volúmenes
+
+Cloud Manager le permite crear volúmenes NFSv3 para Azure NetApp Files.
+
+.Pasos
+. Abra el entorno de trabajo.
+. Haga clic en *Añadir nuevo volumen*.
+. Introduzca los detalles básicos sobre el volumen en la página *Información de cuenta*:
++
+.. Seleccione una suscripción de Azure y una cuenta de Azure NetApp Files.
+.. Escriba un nombre para el volumen.
+.. Seleccione un pool de capacidad y especifique una cuota, que es la cantidad de almacenamiento lógico asignado al volumen.
++
+image:screenshot_anf_account_info.gif["Captura de pantalla de la página Información de la cuenta para un nuevo volumen Azure NetApp Files."]
+
+
+
+. Rellene la página *Política de ubicación y exportación*:
++
+.. Seleccione una vnet y una subred.
+.. Configure una política de exportación para controlar el acceso al volumen.
++
+image:screenshot_anf_location.gif["Captura de pantalla de la página Directiva de exportación de  de ubicación para un nuevo volumen Azure NetApp Files."]
+
+
+
+. Haga clic en *Ir*.
+
+
+
+
+== Obtener la ruta de montaje de un volumen
+
+Copie la ruta de montaje de un volumen para que pueda montar el volumen en un equipo Linux.
+
+.Pasos
+. Abra el entorno de trabajo.
+. Pase el ratón sobre el volumen y haga clic en el menú.
++
+image:screenshot_anf_volume_menu.gif["Captura de pantalla que muestra un volumen y el menú disponibles en la parte superior derecha."]
+
+. Haga clic en *comando de montaje*.
++
+image:screenshot_anf_mount.gif["Captura de pantalla que muestra un volumen y la opción Mount Command que está disponible después de seleccionar el menú."]
+
+. Copie la ruta de montaje y utilice el texto copiado para montar el volumen en un equipo Linux.
+
+
+
+
+== Eliminar volúmenes
+
+Elimine los volúmenes que ya no necesita.
+
+.Pasos
+. Abra el entorno de trabajo.
+. Pase el ratón sobre el volumen y haga clic en el menú.
++
+image:screenshot_anf_volume_menu.gif["Captura de pantalla que muestra un volumen y el menú disponibles en la parte superior derecha."]
+
+. Haga clic en *Eliminar*.
+. Confirme que desea eliminar el volumen.
+
+
+
+
+== Obtener ayuda
+
+Use el chat de Cloud Manager para formular preguntas generales de servicio.
+
+En el caso de los problemas de soporte técnico asociados con Azure NetApp Files, use el portal de Azure para registrar una solicitud de soporte a Microsoft. Seleccione su suscripción de Microsoft asociada y seleccione el nombre de servicio *Azure NetApp Files* en *almacenamiento.* proporcione la información restante necesaria para crear su solicitud de soporte técnico de Microsoft.
+
+Cloud Manager ofrece una descarga local de AutoSupport en la opción de menú *Panel de soporte*. Este archivo 7z contiene un archivo de depuración de Azure para mostrar comunicación entrante y saliente a su cuenta de Azure NetApp Files.
+
+
+
+== Limitaciones
+
+* Cloud Manager no es compatible con SMB Volumes.
+* Cloud Manager no le permite gestionar pools de capacidad ni snapshots de volúmenes.
+* Se pueden crear volúmenes con un tamaño inicial y una única política de exportación. La edición de un volumen debe realizarse desde la interfaz de Azure NetApp Files en el portal de Azure.
+* Cloud Manager no es compatible con la replicación de datos desde o hacia Azure NetApp Files.
+
+
+
+
+== Enlaces relacionados
+
+* https://cloud.netapp.com/azure-netapp-files["Cloud Central de NetApp: Azure NetApp Files"^]
+* https://docs.microsoft.com/en-us/azure/azure-netapp-files/["Documentación de Azure NetApp Files"^]
+

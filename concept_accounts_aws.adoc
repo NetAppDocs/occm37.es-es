@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: concept_accounts_aws.html 
+keywords: cloud provider accounts, aws, aws accounts, keys, multiple accounts, permissions, aws permissions, policy, policies, json 
+summary: Cloud Manager permite elegir la cuenta de AWS en la que desea implementar un sistema Cloud Volumes ONTAP. Puede poner en marcha todos los sistemas Cloud Volumes ONTAP en la cuenta inicial de AWS o configurar cuentas adicionales. 
+---
+= Cuentas y permisos de AWS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Manager permite elegir la cuenta de AWS en la que desea implementar un sistema Cloud Volumes ONTAP. Puede poner en marcha todos los sistemas Cloud Volumes ONTAP en la cuenta inicial de AWS o configurar cuentas adicionales.
+
+
+
+== La cuenta inicial de AWS
+
+Al implementar Cloud Manager desde NetApp Cloud Central, necesita utilizar una cuenta de AWS que tenga permisos para iniciar la instancia de Cloud Manager. Los permisos necesarios se enumeran en la https://mysupport.netapp.com/cloudontap/iampolicies["Política central de Cloud de NetApp para AWS"^].
+
+Cuando Cloud Central inicia la instancia de Cloud Manager en AWS, crea un rol IAM y un perfil de instancia para la instancia. También une una política que ofrece permisos para implementar y gestionar Cloud Volumes ONTAP en esa cuenta de AWS. link:reference_permissions.html#what-cloud-manager-does-with-aws-permissions["Revise cómo Cloud Manager utiliza los permisos"].
+
+image:diagram_permissions_initial_aws.png["una imagen conceptual en la que se muestra la implementación de Cloud Manager en una cuenta de AWS de Cloud Central. Se asigna una política IAM a un rol IAM, que se conecta a la instancia de Cloud Manager"]
+
+Cloud Manager selecciona esta cuenta de proveedor de cloud de forma predeterminada al crear un nuevo entorno de trabajo:
+
+image:screenshot_accounts_select_aws.gif["Captura de pantalla que muestra la opción Cambiar cuenta en la página Detalles  Credentials."]
+
+
+
+== Otras cuentas de AWS
+
+Si desea ejecutar Cloud Volumes ONTAP en diferentes cuentas de AWS, puede hacerlo también link:task_adding_aws_accounts.html["Proporcione las claves AWS para un usuario de IAM o el ARN de un rol en una cuenta de confianza"]. En la siguiente imagen se muestran dos cuentas adicionales, una que proporciona permisos a través de una función IAM en una cuenta de confianza y otra a través de las claves AWS de un usuario de IAM:
+
+image:diagram_permissions_multiple_aws.png["Imagen conceptual que muestra dos cuentas adicionales. Cada uno tiene una política de IAM, una está conectada al usuario del IAM y la otra se conecta a un rol de IAM"]
+
+Entonces lo haría link:task_adding_aws_accounts.html#adding-aws-accounts-to-cloud-manager["Añada las cuentas de proveedor de cloud a Cloud Manager"] Especificando el nombre de recurso de Amazon (ARN) del rol de IAM o las claves de AWS del usuario de IAM.
+
+Después de agregar otra cuenta, puede cambiar a ella al crear un nuevo entorno de trabajo:
+
+image:screenshot_accounts_switch_aws.gif["Captura de pantalla que muestra cómo seleccionar entre cuentas de proveedores de cloud tras hacer clic en Switch Account en la página Details  Credentials."]
+
+.¿Qué pasa con las puestas en marcha de Marketplace y las puestas en marcha en las instalaciones?
+****
+En las secciones anteriores se describe el método de implementación recomendado de NetApp Cloud Central. También puede implementar Cloud Manager en AWS desde el link:task_launching_aws_mktp.html["Mercado AWS"] y usted puede link:task_installing_linux.html["Instale Cloud Manager en las instalaciones"].
+
+Si utiliza el Marketplace, los permisos se proporcionan de la misma manera. Solo tiene que crear y configurar manualmente el rol IAM y, a continuación, proporcionar permisos para cualquier cuenta adicional.
+
+En el caso de las implementaciones locales, no se puede configurar la función de IAM para el sistema Cloud Manager, pero se pueden proporcionar permisos del mismo modo que se busca para cuentas de AWS adicionales.
+
+****

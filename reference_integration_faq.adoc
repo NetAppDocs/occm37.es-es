@@ -1,0 +1,99 @@
+---
+sidebar: sidebar 
+permalink: reference_integration_faq.html 
+keywords: faq, questions, integration, migration, cloud manager, cloud central, authentication, users, accounts, email, ldap, scripts, automation 
+summary: Al actualizar a Cloud Manager 3.5, NetApp elegirá sistemas específicos de Cloud Manager para integrarse con Cloud Central de NetApp, en caso de que aún no estén integrados. Estas preguntas frecuentes pueden responder a las preguntas que pueda tener sobre el proceso. 
+translate: false 
+---
+= Preguntas frecuentes: Integración de Cloud Manager con NetApp Cloud Central
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Al actualizar desde Cloud Manager 3.4 o una versión anterior, NetApp elegirá sistemas de Cloud Manager específicos para integrarse con Cloud Central de NetApp, si no están ya integrados. Estas preguntas frecuentes pueden responder a las preguntas que pueda tener sobre el proceso.
+
+
+
+== ¿Qué es Cloud Central de NetApp?
+
+Cloud Central de NetApp proporciona una ubicación centralizada para acceder y gestionar los servicios de datos en el cloud de NetApp. Estos servicios le permiten ejecutar aplicaciones críticas en el cloud, crear sitios de recuperación ante desastres automatizados, realizar backups de sus datos SaaS y migrar y controlar datos de forma efectiva entre varios clouds.
+
+
+
+== ¿Por qué integra NetApp mi sistema Cloud Manager con Cloud Central?
+
+La integración de Cloud Manager con Cloud Central de NetApp ofrece varias ventajas, como una experiencia de implementación simplificada, una única ubicación para ver y gestionar varios sistemas de Cloud Manager y una autenticación de usuario centralizada.
+
+
+
+== ¿Qué ocurre durante el proceso de integración?
+
+NetApp migra todas las cuentas de usuario locales del sistema Cloud Manager a la autenticación de usuario centralizada disponible en Cloud Central.
+
+
+
+== ¿Cómo funciona la autenticación de usuarios centralizada?
+
+Con la autenticación de usuarios centralizada, puede usar el mismo conjunto de credenciales en los sistemas de Cloud Manager y entre Cloud Manager y otros servicios de datos, como Cloud Sync. También es fácil restablecer la contraseña si la olvida.
+
+
+
+== ¿Debo inscribirme en una cuenta de usuario de Cloud Central?
+
+NetApp creará una cuenta de usuario de Cloud Central para usted cuando integremos su sistema Cloud Manager con Cloud Central. Sólo tiene que restablecer su contraseña para completar el proceso de registro.
+
+
+
+== ¿Qué ocurre si ya tengo una cuenta de usuario de Cloud Central?
+
+Si la dirección de correo electrónico que utiliza para iniciar sesión en Cloud Manager coincide con la dirección de correo electrónico de una cuenta de usuario de Cloud Central, puede iniciar sesión directamente en el sistema Cloud Manager.
+
+
+
+== ¿Qué sucede si mi sistema Cloud Manager tiene varias cuentas de usuario?
+
+NetApp migra todas las cuentas de usuario locales a cuentas de usuario de Cloud Central. Cada usuario necesita restablecer su contraseña.
+
+
+
+== ¿Qué sucede si tengo una cuenta de usuario que utiliza la misma dirección de correo electrónico en varios sistemas de Cloud Manager?
+
+Sólo tiene que restablecer su contraseña una vez y, a continuación, puede utilizar la misma cuenta de usuario de Cloud Central para iniciar sesión en cada sistema de Cloud Manager.
+
+
+
+== ¿Qué ocurre si mi cuenta de usuario local utiliza una dirección de correo electrónico no válida?
+
+Para restablecer la contraseña es necesario disponer de una dirección de correo electrónico válida. Póngase en contacto con nosotros a través del icono de chat disponible en la parte inferior derecha de la interfaz de Cloud Manager.
+
+
+
+== ¿Qué sucede si cuento con secuencias de comandos de automatización para las API de Cloud Manager?
+
+Todas las API son compatibles con versiones anteriores. Deberá actualizar los scripts que utilizan contraseñas, si cambia la contraseña cuando la restablezca.
+
+
+
+== ¿Qué sucede si mi sistema Cloud Manager utiliza LDAP?
+
+Si su sistema utiliza LDAP, NetApp no puede integrar automáticamente el sistema con Cloud Central. Debe realizar manualmente los siguientes pasos:
+
+. Ponga en marcha un nuevo sistema Cloud Manager desde https://cloud.netapp.com/["Cloud Central de NetApp"^].
+. https://services.cloud.netapp.com/misc/federation-support["Configure LDAP con el nuevo sistema"^].
+. link:task_adding_ontap_cloud.html["Descubra los sistemas Cloud Volumes ONTAP existentes"] Del nuevo sistema Cloud Manager.
+. Elimine el sistema Cloud Manager antiguo.
+
+
+
+
+== ¿Importa dónde he instalado mi sistema Cloud Manager?
+
+No NetApp integrará sistemas con Cloud Central sin importar dónde residan, ya sea en AWS, Azure o en sus instalaciones.
+
+
+NOTE: La única excepción es el entorno de servicios de cloud comercial de AWS.

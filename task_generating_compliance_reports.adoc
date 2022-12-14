@@ -1,0 +1,95 @@
+---
+sidebar: sidebar 
+permalink: task_generating_compliance_reports.html 
+keywords: report, privacy, risk, privacy risk assessment, compliance status, severity, compliance, privacy risk, data subjects, privacy 
+summary: El Informe de evaluación de riesgos de privacidad proporciona una visión general del estado de riesgo de privacidad de su organización. Genere el informe y envíelo a otros grupos de su organización, incluidos ejecutivos, equipos de cumplimiento y equipos legales. 
+---
+= Ver el Informe de evaluación de riesgo de privacidad
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+El informe de evaluación de riesgos de privacidad proporciona una descripción general del estado de riesgo de privacidad de su organización, tal y como lo exigen las normativas de privacidad como RGPD y CCPA.
+
+
+NOTE: NetApp no puede garantizar una precisión del 100 % de los datos personales y datos personales confidenciales que identifica Cloud Compliance. Siempre debe validar la información revisando los datos.
+
+El informe incluye la siguiente información:
+
+Estado de cumplimiento:: Una puntuación de gravedad (consulte a continuación para obtener más información) y la distribución de los datos, ya sean personales, confidenciales o no confidenciales.
+Descripción general de la evaluación:: Desglose de los tipos de datos personales encontrados, así como de las categorías de datos.
+Datos sujetos en esta evaluación:: El número de personas por ubicación para las cuales se encontraron identificadores nacionales.
+
+
+
+
+== Generación del Informe de Evaluación de riesgo de Privacidad
+
+Vaya a la ficha cumplimiento para generar el informe.
+
+.Pasos
+. En la parte superior de Cloud Manager, haga clic en *cumplimiento*.
+. En *Informes*, haga clic en el icono de descarga situado junto a *Evaluación de riesgo de privacidad*.
++
+image:screenshot_privacy_risk_assessment.gif["Captura de pantalla de la ficha cumplimiento de normativas de Cloud Manager que muestra el panel Informes en el que puede hacer clic en Evaluación de riesgos de privacidad."]
+
+
+
+.Resultado
+Cloud Compliance genera un informe en PDF que puede revisar y enviar a otros grupos según sea necesario.
+
+
+
+== Puntuación de gravedad
+
+Cloud Compliance calcula la puntuación de gravedad del informe de evaluación del riesgo de privacidad sobre la base de tres variables:
+
+* El porcentaje de datos personales de todos los datos.
+* El porcentaje de datos personales confidenciales de todos los datos.
+* El porcentaje de archivos que incluyen temas de datos, determinado por identificadores nacionales como ID nacionales, números de Seguro Social y números de identificación fiscal.
+
+
+La lógica utilizada para determinar la puntuación es la siguiente:
+
+[cols="29,71"]
+|===
+| Puntuación de gravedad | Lógica 
+
+
+| 0 | Las tres variables son exactamente 0 % 
+
+
+| 1 | Una de las variables es mayor que 0 % 
+
+
+| 2 | Una de las variables es mayor que el 3 % 
+
+
+| 3 | Dos de las variables son mayores que el 3% 
+
+
+| 4 | Tres de las variables son mayores que el 3% 
+
+
+| 5 | Una de las variables es más grande el 6 % 
+
+
+| 6 | Dos de las variables son mayores del 6% 
+
+
+| 7 | Tres de las variables son mayores del 6% 
+
+
+| 8 | Una de las variables es más grande el 15 % 
+
+
+| 9 | Dos de las variables son mayores del 15% 
+
+
+| 10 | Tres de las variables son mayores del 15% 
+|===

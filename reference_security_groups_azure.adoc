@@ -1,0 +1,365 @@
+---
+sidebar: sidebar 
+permalink: reference_security_groups_azure.html 
+keywords: security group, security groups, rules, ports, azure, inbound, outbound, rules 
+summary: Cloud Manager crea grupos de seguridad de Azure que incluyen las reglas entrantes y salientes que Cloud Manager y Cloud Volumes ONTAP deben operar correctamente. Tal vez desee hacer referencia a los puertos para fines de prueba o si necesita utilizar los suyos propios. 
+translate: false 
+---
+= Reglas de grupos de seguridad para Azure
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Manager crea grupos de seguridad de Azure que incluyen las reglas entrantes y salientes que Cloud Manager y Cloud Volumes ONTAP deben operar correctamente. Tal vez desee consultar los puertos para fines de prueba o si prefiere utilizar sus propios grupos de seguridad.
+
+
+
+== Reglas para Cloud Manager
+
+El grupo de seguridad para Cloud Manager requiere reglas tanto entrantes como salientes.
+
+
+
+=== Reglas de entrada para Cloud Manager
+
+El origen de las reglas entrantes en el grupo de seguridad predefinido es 0.0.0.0/0.
+
+[cols="3*"]
+|===
+| Puerto | Protocolo | Específico 
+
+
+| 22 | SSH | Proporciona acceso SSH al host de Cloud Manager 
+
+
+| 80 | HTTP | Proporciona acceso HTTP desde exploradores web de cliente a la consola web de Cloud Manager 
+
+
+| 443 | HTTPS | Proporciona acceso HTTPS desde exploradores web de cliente a la consola web de Cloud Manager 
+|===
+
+
+=== Reglas de salida para Cloud Manager
+
+El grupo de seguridad predefinido para Cloud Manager abre todo el tráfico saliente. Si eso es aceptable, siga las reglas básicas de la salida. Si necesita más reglas rígidas, utilice las reglas avanzadas de salida.
+
+
+
+==== Reglas de salida básicas
+
+El grupo de seguridad predefinido para Cloud Manager incluye las siguientes reglas de salida.
+
+[cols="3*"]
+|===
+| Puerto | Protocolo | Específico 
+
+
+| Todo | Todos los TCP | Todo el tráfico saliente 
+
+
+| Todo | Todas las UDP | Todo el tráfico saliente 
+|===
+
+
+==== Reglas salientes avanzadas
+
+Si necesita reglas rígidas para el tráfico saliente, puede utilizar la siguiente información para abrir únicamente los puertos necesarios para la comunicación saliente de Cloud Manager.
+
+
+NOTE: La dirección IP de origen es el host de Cloud Manager.
+
+[cols="5*"]
+|===
+| Servicio | Puerto | Protocolo | Destino | Específico 
+
+
+.9+| Active Directory | 88 | TCP | Bosque de Active Directory | Autenticación Kerberos V. 
+
+
+| 139 | TCP | Bosque de Active Directory | Sesión de servicio NetBIOS 
+
+
+| 389 | TCP | Bosque de Active Directory | LDAP 
+
+
+| 445 | TCP | Bosque de Active Directory | Microsoft SMB/CIFS sobre TCP con trama NetBIOS 
+
+
+| 464 | TCP | Bosque de Active Directory | Kerberos V cambiar y establecer contraseña (SET_CHANGE) 
+
+
+| 749 | TCP | Bosque de Active Directory | Contraseña de modificación y definición de Kerberos V de Active Directory (RPCSEC_GSS) 
+
+
+| 137 | UDP | Bosque de Active Directory | Servicio de nombres NetBIOS 
+
+
+| 138 | UDP | Bosque de Active Directory | Servicio de datagramas NetBIOS 
+
+
+| 464 | UDP | Bosque de Active Directory | Administración de claves Kerberos 
+
+
+| Llamadas API y AutoSupport | 443 | HTTPS | LIF de gestión de clústeres de ONTAP y Internet saliente | API llama a AWS y ONTAP y envía mensajes de AutoSupport a NetApp 
+
+
+| Llamadas API | 3000 | TCP | LIF de gestión de clústeres de ONTAP | Llamadas API a ONTAP 
+
+
+| DNS | 53 | UDP | DNS | Utilizado para resolver DNS por Cloud Manager 
+|===
+
+
+== Reglas para Cloud Volumes ONTAP
+
+El grupo de seguridad para Cloud Volumes ONTAP requiere reglas tanto entrantes como salientes.
+
+
+
+=== Reglas de entrada para sistemas de un solo nodo
+
+Las reglas que se enumeran a continuación permiten el tráfico, a menos que la descripción indique que bloquea el tráfico entrante específico.
+
+[cols="4*"]
+|===
+| Prioridad y nombre | Puerto y protocolo | Origen y destino | Descripción 
+
+
+| 1000 inbound_ssh | 22 TCP | De cualquiera a cualquiera | Acceso SSH a la dirección IP de administración del clúster LIF o una LIF de gestión de nodos 
+
+
+| 1001 inbound_http | 80 TCP | De cualquiera a cualquiera | Acceso HTTP a la consola web de System Manager mediante el La dirección IP de la LIF de gestión del clúster 
+
+
+| 1002 inbound_111_tcp | 111 TCP | De cualquiera a cualquiera | Llamada a procedimiento remoto para NFS 
+
+
+| 1003 inbound_111_udp | 111 UDP | De cualquiera a cualquiera | Llamada a procedimiento remoto para NFS 
+
+
+| 1004 inbound_139 | 139 TCP | De cualquiera a cualquiera | Sesión de servicio NetBIOS para CIFS 
+
+
+| 1005 inbound_161-162 _tcp | 161-162 TCP | De cualquiera a cualquiera | Protocolo simple de gestión de red 
+
+
+| 1006 inbound_161-162 _udp | 161-162 UDP | De cualquiera a cualquiera | Protocolo simple de gestión de red 
+
+
+| 1007 inbound_443 | 443 TCP | De cualquiera a cualquiera | Acceso HTTPS a la consola web de System Manager mediante el La dirección IP de la LIF de gestión del clúster 
+
+
+| 1008 inbound_445 | 445 TCP | De cualquiera a cualquiera | Microsoft SMB/CIFS sobre TCP con trama NetBIOS 
+
+
+| 1009 inbound_635_tcp | 635 TCP | De cualquiera a cualquiera | Montaje NFS 
+
+
+| 1010 inbound_635_udp | 635 UDP | De cualquiera a cualquiera | Montaje NFS 
+
+
+| 1011 inbound_749 | 749 TCP | De cualquiera a cualquiera | Kerberos 
+
+
+| 1012 inbound_2049_tcp | 2049 TCP | De cualquiera a cualquiera | Daemon del servidor NFS 
+
+
+| 1013 inbound_2049_udp | 2049 UDP | De cualquiera a cualquiera | Daemon del servidor NFS 
+
+
+| 1014 inbound_3260 | 3260 TCP | De cualquiera a cualquiera | Acceso iSCSI mediante la LIF de datos iSCSI 
+
+
+| 1015 inbound_4045-4046_tcp | 4045-4046 TCP | De cualquiera a cualquiera | Daemon de bloqueo NFS y monitor de estado de red 
+
+
+| 1016 inbound_4045-4046_udp | 4045-4046 UDP | De cualquiera a cualquiera | Daemon de bloqueo NFS y monitor de estado de red 
+
+
+| 1017 inbound_10000 | 10000 TCP | De cualquiera a cualquiera | Backup con NDMP 
+
+
+| 1018 inbound_11104-11105 | 11104-11105 TCP | De cualquiera a cualquiera | Transferencia de datos de SnapMirror 
+
+
+| 3000 inbound_deny _all_tcp | Cualquier puerto TCP | De cualquiera a cualquiera | Bloquear el resto del tráfico entrante TCP 
+
+
+| 3001 inbound_deny _all_udp | Cualquier puerto UDP | De cualquiera a cualquiera | Bloquee el resto del tráfico de entrada UDP 
+
+
+| 65000 AllowVnetInBound | Cualquier protocolo | VirtualNetwork para VirtualNetwork | Tráfico entrante desde dentro del vnet 
+
+
+| 65001 AllowAzureLoad Balance InBound | Cualquier protocolo | AzureLoadBalancer a cualquiera | Tráfico de datos del balanceador de carga estándar de Azure 
+
+
+| 65500 DenyAllInBound | Cualquier protocolo | De cualquiera a cualquiera | Bloquear el resto del tráfico entrante 
+|===
+
+
+=== Reglas de entrada para sistemas de alta disponibilidad
+
+Las reglas que se enumeran a continuación permiten el tráfico, a menos que la descripción indique que bloquea el tráfico entrante específico.
+
+
+NOTE: Los sistemas de ALTA DISPONIBILIDAD tienen menos reglas entrantes que los sistemas de un solo nodo, porque el tráfico de datos entrantes pasa por el balanceador de carga estándar de Azure. Debido a esto, el tráfico del equilibrador de carga debe estar abierto, como se muestra en la regla "AllowAzureLoadBalance InBound".
+
+[cols="4*"]
+|===
+| Prioridad y nombre | Puerto y protocolo | Origen y destino | Descripción 
+
+
+| 100 inbound_443 | 443 cualquier protocolo | De cualquiera a cualquiera | Acceso HTTPS a la consola web de System Manager mediante el La dirección IP de la LIF de gestión del clúster 
+
+
+| 101 inbound_111_tcp | 111 cualquier protocolo | De cualquiera a cualquiera | Llamada a procedimiento remoto para NFS 
+
+
+| 102 inbound_2049_tcp | 2049 cualquier protocolo | De cualquiera a cualquiera | Daemon del servidor NFS 
+
+
+| 111 inbound_ssh | 22 cualquier protocolo | De cualquiera a cualquiera | Acceso SSH a la dirección IP de administración del clúster LIF o una LIF de gestión de nodos 
+
+
+| 121 inbound_53 | 53 cualquier protocolo | De cualquiera a cualquiera | DNS y CIFS 
+
+
+| 65000 AllowVnetInBound | Cualquier protocolo | VirtualNetwork para VirtualNetwork | Tráfico entrante desde dentro del vnet 
+
+
+| 65001 AllowAzureLoad Balance InBound | Cualquier protocolo | AzureLoadBalancer a cualquiera | Tráfico de datos del balanceador de carga estándar de Azure 
+
+
+| 65500 DenyAllInBound | Cualquier protocolo | De cualquiera a cualquiera | Bloquear el resto del tráfico entrante 
+|===
+
+
+=== Reglas de salida para Cloud Volumes ONTAP
+
+El grupo de seguridad predefinido para Cloud Volumes ONTAP abre todo el tráfico saliente. Si eso es aceptable, siga las reglas básicas de la salida. Si necesita más reglas rígidas, utilice las reglas avanzadas de salida.
+
+
+
+==== Reglas de salida básicas
+
+El grupo de seguridad predefinido para Cloud Volumes ONTAP incluye las siguientes reglas de salida.
+
+[cols="3*"]
+|===
+| Puerto | Protocolo | Específico 
+
+
+| Todo | Todos los TCP | Todo el tráfico saliente 
+
+
+| Todo | Todas las UDP | Todo el tráfico saliente 
+|===
+
+
+==== Reglas salientes avanzadas
+
+Si necesita reglas rígidas para el tráfico saliente, puede utilizar la siguiente información para abrir sólo los puertos necesarios para la comunicación saliente por Cloud Volumes ONTAP.
+
+
+NOTE: El origen es la interfaz (dirección IP) en el sistema Cloud Volumes ONTAP.
+
+[cols="10,10,10,20,20,40"]
+|===
+| Servicio | Puerto | Protocolo | Origen | Destino | Específico 
+
+
+.18+| Active Directory | 88 | TCP | LIF de gestión de nodos | Bosque de Active Directory | Autenticación Kerberos V. 
+
+
+| 137 | UDP | LIF de gestión de nodos | Bosque de Active Directory | Servicio de nombres NetBIOS 
+
+
+| 138 | UDP | LIF de gestión de nodos | Bosque de Active Directory | Servicio de datagramas NetBIOS 
+
+
+| 139 | TCP | LIF de gestión de nodos | Bosque de Active Directory | Sesión de servicio NetBIOS 
+
+
+| 389 | TCP | LIF de gestión de nodos | Bosque de Active Directory | LDAP 
+
+
+| 445 | TCP | LIF de gestión de nodos | Bosque de Active Directory | Microsoft SMB/CIFS sobre TCP con trama NetBIOS 
+
+
+| 464 | TCP | LIF de gestión de nodos | Bosque de Active Directory | Kerberos V cambiar y establecer contraseña (SET_CHANGE) 
+
+
+| 464 | UDP | LIF de gestión de nodos | Bosque de Active Directory | Administración de claves Kerberos 
+
+
+| 749 | TCP | LIF de gestión de nodos | Bosque de Active Directory | Contraseña de Kerberos V Change & Set (RPCSEC_GSS) 
+
+
+| 88 | TCP | LIF DE DATOS (NFS, CIFS) | Bosque de Active Directory | Autenticación Kerberos V. 
+
+
+| 137 | UDP | LIF DE DATOS (NFS, CIFS) | Bosque de Active Directory | Servicio de nombres NetBIOS 
+
+
+| 138 | UDP | LIF DE DATOS (NFS, CIFS) | Bosque de Active Directory | Servicio de datagramas NetBIOS 
+
+
+| 139 | TCP | LIF DE DATOS (NFS, CIFS) | Bosque de Active Directory | Sesión de servicio NetBIOS 
+
+
+| 389 | TCP | LIF DE DATOS (NFS, CIFS) | Bosque de Active Directory | LDAP 
+
+
+| 445 | TCP | LIF DE DATOS (NFS, CIFS) | Bosque de Active Directory | Microsoft SMB/CIFS sobre TCP con trama NetBIOS 
+
+
+| 464 | TCP | LIF DE DATOS (NFS, CIFS) | Bosque de Active Directory | Kerberos V cambiar y establecer contraseña (SET_CHANGE) 
+
+
+| 464 | UDP | LIF DE DATOS (NFS, CIFS) | Bosque de Active Directory | Administración de claves Kerberos 
+
+
+| 749 | TCP | LIF DE DATOS (NFS, CIFS) | Bosque de Active Directory | Contraseña de Kerberos V change & set (RPCSEC_GSS) 
+
+
+| DHCP | 68 | UDP | LIF de gestión de nodos | DHCP | Cliente DHCP para la configuración inicial 
+
+
+| DHCPS | 67 | UDP | LIF de gestión de nodos | DHCP | Servidor DHCP 
+
+
+| DNS | 53 | UDP | LIF de gestión de nodos y LIF de datos (NFS, CIFS) | DNS | DNS 
+
+
+| NDMP | 18600–18699 | TCP | LIF de gestión de nodos | Servidores de destino | Copia NDMP 
+
+
+| SMTP | 25 | TCP | LIF de gestión de nodos | Servidor de correo | Alertas SMTP, que se pueden utilizar para AutoSupport 
+
+
+.4+| SNMP | 161 | TCP | LIF de gestión de nodos | Servidor de supervisión | Supervisión mediante capturas SNMP 
+
+
+| 161 | UDP | LIF de gestión de nodos | Servidor de supervisión | Supervisión mediante capturas SNMP 
+
+
+| 162 | TCP | LIF de gestión de nodos | Servidor de supervisión | Supervisión mediante capturas SNMP 
+
+
+| 162 | UDP | LIF de gestión de nodos | Servidor de supervisión | Supervisión mediante capturas SNMP 
+
+
+.2+| SnapMirror | 11104 | TCP | LIF entre clústeres | LIF de interconexión de clústeres de ONTAP | Gestión de sesiones de comunicación de interconexión de clústeres para SnapMirror 
+
+
+| 11105 | TCP | LIF entre clústeres | LIF de interconexión de clústeres de ONTAP | Transferencia de datos de SnapMirror 
+
+
+| Syslog | 514 | UDP | LIF de gestión de nodos | Servidor de syslog | Mensajes de syslog Reenviar 
+|===

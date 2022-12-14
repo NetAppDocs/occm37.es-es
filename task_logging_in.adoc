@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: task_logging_in.html 
+keywords: logging in, log in, sign in, signing in, cloud central, netapp cloud central, user account 
+summary: Puede iniciar sesión en Cloud Manager desde cualquier explorador web que tenga conexión con el sistema Cloud Manager. Debe iniciar sesión mediante una cuenta de usuario de Cloud Central de NetApp. 
+---
+= Inicio de sesión en Cloud Manager
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Puede iniciar sesión en Cloud Manager desde cualquier explorador web que tenga conexión con el sistema Cloud Manager. Debe iniciar sesión mediante un https://cloud.netapp.com["Cloud Central de NetApp"^] cuenta de usuario.
+
+.Pasos
+. Abra un explorador web e inicie sesión en https://cloud.netapp.com["Cloud Central de NetApp"^].
++
+Este paso le dirigirá automáticamente a la vista de estructura. Si no lo hace, haga clic en *Fabric View*.
+
+. Seleccione el sistema Cloud Manager al que desea acceder.
++
+
+TIP: Si no ve ningún sistema en la lista, asegúrese de que el administrador de cuentas le haya añadido a la cuenta de Cloud Central asociada con el sistema Cloud Manager.
+
+. Inicie sesión en Cloud Manager con sus credenciales de Cloud Central de NetApp.
++
+image:screenshot_login.gif["La pantalla de inicio de sesión de Cloud Manager."]
+
+

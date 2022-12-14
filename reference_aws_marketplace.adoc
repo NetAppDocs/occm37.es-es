@@ -1,0 +1,48 @@
+---
+sidebar: sidebar 
+permalink: reference_aws_marketplace.html 
+keywords: aws marketplace, marketplace pages, marketplace offerings, subscribe, subscribing 
+summary: Existen varias ofertas disponibles en el mercado de AWS para Cloud Manager y Cloud Volumes ONTAP. Si no está seguro de qué página debe utilizar, lea a continuación y le dirigiremos a la página correcta según su objetivo. 
+translate: false 
+---
+= Páginas de AWS Marketplace para Cloud Manager y Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Existen varias ofertas disponibles en el mercado de AWS para Cloud Manager y Cloud Volumes ONTAP. Si no está seguro de qué página debe utilizar, lea a continuación y le dirigiremos a la página correcta según su objetivo.
+
+En todos los casos, recuerde que no puede iniciar Cloud Volumes ONTAP en AWS desde AWS Marketplace. Es necesario iniciar directamente desde Cloud Manager.
+
+[cols="34,33,33"]
+|===
+| Objetivo | Página AWS Marketplace para utilizar | Más información 
+
+
+| Permitir la puesta en funcionamiento de Cloud Volumes ONTAP PAYGO para versiones 9.6 y posteriores .2+| https://aws.amazon.com/marketplace/pp/B07QX2QLXX["Cloud Manager (para Cloud Volumes ONTAP)"^] .2+| Esta página de AWS Marketplace permite el cobro de la versión PAYGO de Cloud Volumes ONTAP 9.6 y posterior. También permite cargar las funciones complementarias de Cloud Volumes ONTAP. Esta página no permite iniciar Cloud Manager en AWS. Eso se debe hacer desde https://cloud.netapp.com["Cloud Central de NetApp"^]O bien, utilizando el AMI que se indica en la fila 4 de esta tabla. 
+
+
+| Activar funciones complementarias para Cloud Volumes ONTAP (PAYGO o BYOL) 
+
+
+| Puesta en marcha de Cloud Volumes ONTAP mediante una licencia que he comprado a NetApp (BYOL)  a| 
+* https://aws.amazon.com/marketplace/pp/B00OMA46T0["Cloud Volumes ONTAP para AWS (BYOL)"^]
+* https://aws.amazon.com/marketplace/pp/B01H4LVJUC["Cloud Volumes ONTAP para AWS - Alta disponibilidad (BYOL)"^]
+
+| Estas páginas de AWS Marketplace le permiten suscribirse a las versiones de nodo único o de alta disponibilidad de BYOL de Cloud Volumes ONTAP. 
+
+
+| Ponga en marcha Cloud Manager desde AWS Marketplace mediante un AMI | https://aws.amazon.com/marketplace/pp/B018REK8QG["Cloud Manager de NetApp (para Cloud Volumes ONTAP de NetApp)"^] | Le recomendamos que ejecute Cloud Manager en AWS desde https://cloud.netapp.com["Cloud Central de NetApp"^], pero puede iniciarlo desde esta página de AWS Marketplace, si lo prefiere. 
+
+
+| Permitir la puesta en marcha de Cloud Volumes ONTAP PAYGO (9.5 o anterior)  a| 
+* https://aws.amazon.com/marketplace/pp/B011KEZ734["Cloud Volumes ONTAP para AWS"^]
+* https://aws.amazon.com/marketplace/pp/B01H4LVJ84["Cloud Volumes ONTAP para AWS: Alta disponibilidad"^]
+
+| Estas páginas de AWS Marketplace le permiten suscribirse a las versiones de nodo único o ha de Cloud Volumes ONTAP PAYGO para las versiones 9.5 y anteriores. A partir de la versión 9.6, tiene que suscribirse a la página de AWS Marketplace que se encuentra en la fila 1 de esta tabla para las puestas en marcha de PAYGO. 
+|===

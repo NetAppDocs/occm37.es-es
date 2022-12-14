@@ -1,0 +1,23 @@
+---
+sidebar: sidebar 
+permalink: concept_cloud_central.html 
+keywords: netapp cloud central, cloud central, cloud data services, data services, user authentication, authentication, video 
+summary: Cloud Central de NetApp proporciona una ubicación centralizada para acceder y gestionar los servicios de datos en el cloud de NetApp. 
+---
+= Cloud Central de NetApp
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+https://cloud.netapp.com["Cloud Central de NetApp"^] Ofrece una ubicación centralizada para acceder a los servicios de datos en el cloud de NetApp y gestionarlos. Estos servicios le permiten ejecutar aplicaciones críticas en el cloud, crear sitios de recuperación ante desastres automatizados, realizar backups de sus datos SaaS y migrar y controlar datos de forma efectiva entre varios clouds.
+
+La integración de Cloud Manager con Cloud Central de NetApp ofrece varias ventajas, como una experiencia de implementación simplificada, una única ubicación para ver y gestionar varios sistemas de Cloud Manager y una autenticación de usuario centralizada.
+
+Con la autenticación de usuarios centralizada, puede usar el mismo conjunto de credenciales en los sistemas de Cloud Manager y entre Cloud Manager y otros servicios de datos, como Cloud Sync. También es fácil restablecer la contraseña si la has olvidado.
+
+image:screenshot_cloud_central.gif["Una captura de pantalla que muestra Fabric View en Cloud Central."]

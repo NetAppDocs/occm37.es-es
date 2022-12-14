@@ -1,0 +1,37 @@
+---
+sidebar: sidebar 
+permalink: task_configuring_proxy.html 
+keywords: proxy, proxy server, proxy, internet 
+summary: Al implementar Cloud Manager por primera vez, se le solicita que introduzca un servidor proxy si el sistema no tiene acceso a Internet. También puede introducir y modificar manualmente el proxy desde la configuración de Cloud Manager. 
+---
+= Configuración de Cloud Manager para usar un servidor proxy
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Al implementar Cloud Manager por primera vez, se le solicita que introduzca un servidor proxy si el sistema no tiene acceso a Internet. También puede introducir y modificar manualmente el proxy desde la configuración de Cloud Manager.
+
+.Acerca de esta tarea
+Si sus directivas corporativas dictan que utiliza un servidor proxy para todas las comunicaciones HTTP a Internet, debe configurar Cloud Manager para que utilice ese servidor proxy. El servidor proxy puede estar en la nube o en la red.
+
+Al configurar Cloud Manager para que utilice un servidor proxy, Cloud Manager, Cloud Volumes ONTAP y el mediador de alta disponibilidad utilizan el servidor proxy.
+
+.Pasos
+. En la parte superior derecha de la consola de Cloud Manager, haga clic en el icono Configuración y seleccione *Configuración de Cloud Manager*.
++
+image:screenshot_settings_icon.gif["Captura de pantalla que muestra el icono Configuración en la parte superior derecha de la consola de Cloud Manager."]
+
+. En HTTP Proxy, introduzca el servidor con la sintaxis http://_address:port_[], especifique un nombre de usuario y una contraseña si se requiere autenticación básica para el servidor y, a continuación, haga clic en *Guardar*.
++
+
+NOTE: Cloud Manager no admite contraseñas con el carácter @.
+
+
+
+.Resultado
+Después de especificar el servidor proxy, los nuevos sistemas Cloud Volumes ONTAP se configuran automáticamente para utilizar el servidor proxy al enviar mensajes de AutoSupport. Si no especifica el servidor proxy antes de que los usuarios creen sistemas Cloud Volumes ONTAP, deben usar System Manager para establecer manualmente el servidor proxy en las opciones de AutoSupport para cada sistema.

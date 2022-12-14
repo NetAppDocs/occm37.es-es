@@ -1,0 +1,70 @@
+---
+pagenav: false 
+sidebar: sidebar 
+permalink: task_getting_started_azure.html 
+keywords: microsoft, azure, netapp, data fabric, hybrid cloud, cloud, public cloud, networking, marketplace, virtual machine, vnet, quick, getting started, install, installing, deploy, deploying, setup, setting up, launching, requirements, prerequisites, cloud central, permissions, custom role, role, json, permissions, virtual machine, video, connectivity, internet, outbound, endpoint, connection, networks, vpn, replicating, policy, iam, setupasservice, sign up, cloud manager, cloud volumes ontap, cloud ontap, subscription, create 
+summary: Puede empezar a utilizar Cloud Volumes ONTAP en Azure siguiendo unos pasos rápidos. 
+---
+= Introducción a Cloud Volumes ONTAP en Azure
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Empiece a usar Cloud Volumes ONTAP configurando Azure y, a continuación, ponga en marcha el software Cloud Manager desde Cloud Central de NetApp. Hay disponibles instrucciones adicionales para implementar Cloud Manager en link:task_installing_azure_gov.html["Regiones gubernamentales de Azure EE. UU"] y en link:task_installing_azure_germany.html["Regiones de Azure Alemania"].
+
+
+
+=== image:number1.png["Número 1"] Configure su red
+
+[role="quick-margin-para"]
+Habilite el acceso saliente a Internet desde la red virtual de destino para que Cloud Manager y Cloud Volumes ONTAP puedan ponerse en contacto con varios extremos.
+
+[role="quick-margin-para"]
+Este paso es importante porque Cloud Manager no puede implementar Cloud Volumes ONTAP sin acceso saliente a Internet. Si necesita limitar la conectividad saliente, consulte la lista de puntos finales para link:reference_networking_cloud_manager.html#outbound-internet-access["Cloud Manager"] y.. link:reference_networking_azure.html["Cloud Volumes ONTAP"].
+
+
+
+=== image:number2.png["Número 2"] Proporcione los permisos de Azure necesarios
+
+[role="quick-margin-para"]
+Al poner en marcha Cloud Manager desde NetApp Cloud Central, necesita utilizar una cuenta de Azure con permisos para implementar la máquina virtual de Cloud Manager.
+
+[role="quick-margin-list"]
+. Descargue el https://mysupport.netapp.com/cloudontap/iampolicies["Política Cloud Central de NetApp para Azure"^].
+. Modifique el archivo JSON añadiendo el ID de suscripción de Azure al campo "AssignableScopes".
+. Utilice el archivo JSON para crear una función personalizada en Azure denominada _Azure SetupAsService_.
++
+Ejemplo: *Az role definition create --role-definition C:\Policy_for_Setup_as_Service_Azure.json*
+
+. En el portal de Azure, asigne la función personalizada al usuario que pondrá en marcha Cloud Manager desde Cloud Central.
+
+
+
+
+=== image:number3.png["Número 3"] Inicie Cloud Manager desde NetApp Cloud Central
+
+[role="quick-margin-para"]
+Se necesita software Cloud Manager para poner en marcha y gestionar Cloud Volumes ONTAP. Se tarda unos pocos minutos en iniciar una instancia de Cloud Manager desde https://cloud.netapp.com["Cloud Central"^].
+
+
+
+=== image:number4.png["Número 4"] Inicie Cloud Volumes ONTAP mediante Cloud Manager
+
+[role="quick-margin-para"]
+Una vez que Cloud Manager esté listo, haga clic en Create, seleccione el tipo de sistema que desea implementar y complete los pasos del asistente. Tras 25 minutos, el primer sistema Cloud Volumes ONTAP debe estar listo para funcionar.
+
+.Enlaces relacionados
+* link:concept_evaluating.html["Evaluación"]
+* link:reference_networking_cloud_manager.html["Requisitos de red para Cloud Manager"]
+* link:reference_networking_azure.html["Requisitos de red para Cloud Volumes ONTAP en Azure"]
+* link:reference_security_groups_azure.html["Reglas de grupos de seguridad para Azure"]
+* link:task_adding_azure_accounts.html["Adición de cuentas de Azure a Cloud Manager"]
+* link:reference_permissions.html#what-cloud-manager-does-with-azure-permissions["Qué hace Cloud Manager con permisos de Azure"]
+* link:task_deploying_otc_azure.html["Inicio de Cloud Volumes ONTAP en Azure"]
+* link:task_launching_azure_mktp.html["Ejecute Cloud Manager desde Azure Marketplace"]
+

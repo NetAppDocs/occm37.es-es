@@ -1,0 +1,104 @@
+---
+pagenav: false 
+sidebar: sidebar 
+permalink: task_connecting_kubernetes.html 
+keywords: kubernetes, persistent volumes, containers, persistent storage, kubeconfig, trident, kubernetes cluster, storage classes, classes, cvo-single, cvo-ha, thick provisioning, trident_trident, connect, disconnect, provision 
+summary: Cloud Manager puede automatizar la puesta en marcha de Trident de NetApp en clústeres de Kubernetes para que pueda usar ONTAP como almacenamiento persistente para contenedores. Esto funciona con clústeres Cloud Volumes ONTAP y ONTAP en las instalaciones. Empezar incluye unos pasos. 
+---
+= Use ONTAP como almacenamiento persistente para Kubernetes
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Manager puede automatizar la puesta en marcha de https://netapp-trident.readthedocs.io/en/stable-v18.10/introduction.html["Trident de NetApp"^] En los clústeres de Kubernetes, puede usar ONTAP como almacenamiento persistente para contenedores. Esto funciona con clústeres Cloud Volumes ONTAP y ONTAP en las instalaciones.
+
+Antes de completar estos pasos, debe hacerlo link:reference_before.html["Cree un sistema Cloud Volumes ONTAP"] o. link:task_discovering_ontap.html["Detectar un clúster de ONTAP en las instalaciones"] De Cloud Manager.
+
+Si se implementan clústeres de Kubernetes mediante el https://cloud.netapp.com/kubernetes-service["Servicio Kubernetes de NetApp"^], Cloud Manager puede detectar automáticamente los clústeres desde la cuenta de Cloud Central de NetApp. Si ese es el caso, omita los dos primeros pasos y comience con el paso 3.
+
+
+
+=== image:number1.png["Número 1"] Verifique la conectividad de red
+
+[role="quick-margin-list"]
+. Debe haber una conexión de red entre Cloud Manager y los clústeres de Kubernetes, y desde los clústeres de Kubernetes a los sistemas ONTAP.
+. Cloud Manager necesita una conexión a Internet de salida para acceder a los siguientes extremos al instalar Trident:
++
+\https://packages.cloud.google.com/yum \https://github.com/NetApp/trident/releases/download/
+
++
+Cloud Manager instala Trident en un clúster de Kubernetes cuando se conecta un entorno de trabajo al clúster.
+
+
+
+
+
+=== image:number2.png["Número 2"] Cargue los archivos de configuración de Kubernetes en Cloud Manager
+
+[role="quick-margin-para"]
+Para cada clúster de Kubernetes, el administrador de cuentas debe cargar un archivo de configuración (kubeconfig) que tenga el formato YAML. Después de cargar el archivo, Cloud Manager verifica la conectividad al clúster y guarda una copia cifrada del archivo kubeconfig.
+
+[role="quick-margin-para"]
+Haga clic en *Kubernetes Clusters > Discover > Upload File* y seleccione el archivo kubeconfig.
+
+[role="quick-margin-para"]
+image:screenshot_kubernetes_setup.gif["Una captura de pantalla que muestra la pestaña clústeres de Kubernetes con el botón Discover y la pantalla en la que se hace clic en Upload File para cargar el archivo kubeconfig."]
+
+
+
+=== image:number3.png["Número 3"] Conecte sus entornos de trabajo a los clústeres de Kubernetes
+
+[role="quick-margin-para"]
+En el entorno de trabajo, haga clic en el icono Kubernetes y siga las indicaciones. Puede conectar distintos clústeres en diferentes sistemas de ONTAP y varios clústeres en el mismo sistema ONTAP.
+
+[role="quick-margin-para"]
+Puede definir la clase de almacenamiento de NetApp como la clase de almacenamiento predeterminada para el clúster de Kubernetes. Cuando un usuario crea un volumen persistente, el clúster de Kubernetes puede utilizar sistemas ONTAP conectados de forma predeterminada como almacenamiento back-end.
+
+[role="quick-margin-para"]
+image:screenshot_kubernetes_connect.gif["Una captura de pantalla que muestra el icono de Kubernetes dentro y el entorno de trabajo de Cloud Volumes ONTAP, así como la página siguiente, que le permite seleccionar un clúster de Kubernetes y, a continuación, hacer clic en Connect."]
+
+
+
+=== image:number4.png["Número 4"] Inicie el aprovisionamiento de volúmenes persistentes
+
+[role="quick-margin-para"]
+Solicite y gestione volúmenes persistentes mediante construcciones e interfaces de Kubernetes nativas. Cloud Manager crea cuatro clases de almacenamiento Kubernetes que se pueden usar cuando se aprovisionan volúmenes persistentes:
+
+[role="quick-margin-list"]
+* *netapp-file*: Para vincular volúmenes persistentes a sistemas ONTAP de un solo nodo
+* *netapp-File-san*: Para vincular volúmenes persistentes iSCSI a sistemas ONTAP de un solo nodo
+* *netapp-file-redundante*: Para vincular volúmenes persistentes a pares de alta disponibilidad ONTAP
+* *netapp-File-redundante-san*: Para vincular volúmenes persistentes iSCSI a pares de alta disponibilidad ONTAP
+
+
+[role="quick-margin-para"]
+Cloud Manager configura Trident para que utilice las siguientes opciones de aprovisionamiento de forma predeterminada:
+
+[role="quick-margin-list"]
+* Volúmenes finos
+* La política de Snapshot predeterminada
+* Directorio Snapshot accesible
+
+
+[role="quick-margin-para"]
+https://netapp-trident.readthedocs.io/["Más información sobre el aprovisionamiento de su primer volumen con Trident para Kubernetes"^]
+
+.¿Cuáles son los volúmenes trident_trident?
+****
+Cloud Manager crea un volumen en el primer sistema ONTAP que se conecta a un clúster de Kubernetes. El nombre del volumen se añade con "_trident_trident". ONTAP usa este volumen para conectarse al clúster de Kubernetes. No debe eliminar estos volúmenes.
+
+****
+.¿Qué ocurre cuando se desconecta o se quita un clúster de Kubernetes?
+****
+Cloud Manager permite desconectar sistemas individuales de ONTAP de un clúster de Kubernetes. Cuando se desconecta un sistema, ya no se puede utilizar ese sistema ONTAP como almacenamiento persistente para contenedores. No se eliminan los volúmenes persistentes existentes.
+
+Después de desconectar todos los sistemas de un clúster de Kubernetes, también puede eliminar toda la configuración de Kubernetes de Cloud Manager. Cloud Manager no desinstala Trident cuando se quita el clúster y no elimina ningún volumen persistente.
+
+Estas dos acciones están disponibles únicamente mediante API. Tenemos previsto añadir las acciones a la interfaz en una futura versión.link:api.html#_kubernetes["Haga clic aquí para obtener más información sobre las API"].
+
+****
