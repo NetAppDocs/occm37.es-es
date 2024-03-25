@@ -2917,14 +2917,6 @@
   <block id="07d55193182697e6721a80930a82f737" category="doc">Versiones anteriores de la documentación de Cloud Manager</block>
   <block id="0bf65d2b559533c88cc79b3840d69e6d" category="inline-link">Cloud Manager 3.6</block>
   <block id="e53b2df33a1dac75704245860415ceff" category="list-text"><block ref="e53b2df33a1dac75704245860415ceff" category="inline-link-rx"></block></block>
-  <block id="ecc216112e51b5fcf9a16ded8dabf7d3" category="inline-link">Cloud Manager 3.5</block>
-  <block id="cfc918b9915ac614a17310f450bf2721" category="list-text"><block ref="cfc918b9915ac614a17310f450bf2721" category="inline-link-rx"></block></block>
-  <block id="e3d94d1f3408c8379bdf78d363454ce1" category="inline-link">Cloud Manager 3.4</block>
-  <block id="38de804ea38bf38231c886d96da268e7" category="list-text"><block ref="38de804ea38bf38231c886d96da268e7" category="inline-link-rx"></block></block>
-  <block id="071d13764bfb9458bd760c388f1767ba" category="inline-link">Cloud Manager 3.3</block>
-  <block id="16402a155f06e6eb36ecc0f5c23fe0c3" category="list-text"><block ref="16402a155f06e6eb36ecc0f5c23fe0c3" category="inline-link-rx"></block></block>
-  <block id="5762b1cbe884ee9e94cfac52c83c4e93" category="inline-link">Cloud Manager 3.2</block>
-  <block id="512d31465e67eb0eaa423ce8c234959e" category="list-text"><block ref="512d31465e67eb0eaa423ce8c234959e" category="inline-link-rx"></block></block>
   <block id="0bed42b2d82067f0d295dc2785e81533" category="summary">Es necesario añadir una cuenta de Google Cloud Platform a Cloud Manager para permitir la organización en niveles de los datos en un sistema Cloud Volumes ONTAP. Organización en niveles de datos organiza automáticamente en niveles los datos fríos en un almacenamiento de objetos de bajo coste, lo que le permite recuperar espacio en el almacenamiento principal y reducir el almacenamiento secundario.</block>
   <block id="2157938460edbda23f083148927e15a0" category="inline-link-macro">organización en niveles de los datos</block>
   <block id="c327fcac9e8dd1e5488d5b7d6f776ef3" category="paragraph">Si desea habilitar <block ref="ea2244f77d45e856ef09f638baf765fa" category="inline-link-macro-rx"></block> En un sistema Cloud Volumes ONTAP, debe proporcionar a Cloud Manager una clave de acceso al almacenamiento para una cuenta de servicio con permisos de administrador de almacenamiento. Cloud Manager utiliza las claves de acceso para configurar y gestionar un bucket de Cloud Storage para la organización de datos en niveles.</block>
@@ -4382,4 +4374,8 @@
   <block id="d08ccf52b4cdd08e41cfb99ec42e0b29" category="sidebar">Permisos</block>
   <block id="f4040f71a7d553f2519487070892b115" category="sidebar">Roles de usuario</block>
   <block id="93168a8084b3e838d2932c4734bd234e" category="sidebar">Versiones anteriores</block>
+  <block id="9b9477e579c3b44dd623d5a6e1ea8d78" category="section-title">BlueXP</block>
+  <block id="1514a9e798eb61fcbaf1fddb8eb82097" category="paragraph">NetApp BlueXP amplía y mejora las funcionalidades que se proporcionan a través de Cloud Manager.</block>
+  <block id="ab226d70455b3dcdb3cf804792103d43" category="inline-link">Ve a la documentación de BlueXP</block>
+  <block id="50523074a17d5fe93be8e3f013a747de" category="paragraph"><block ref="50523074a17d5fe93be8e3f013a747de" category="inline-link-rx"></block></block>
 </blocks>

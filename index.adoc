@@ -16,6 +16,14 @@ Cloud Manager le permite poner en marcha y gestionar Cloud Volumes ONTAP de NetA
 
 
 
+== BlueXP
+
+NetApp BlueXP amplía y mejora las funcionalidades que se proporcionan a través de Cloud Manager.
+
+https://docs.netapp.com/us-en/bluexp-family/["Ve a la documentación de BlueXP"^]
+
+
+
 == Descubra las novedades
 
 * link:reference_new_occm.html["Novedades en Cloud Manager"]
